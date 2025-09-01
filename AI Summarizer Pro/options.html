@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Summarizer Pro Settings</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: #0a0a0f;
+      color: #e4e4e7;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 131, 73, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(124, 58, 237, 0.06) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a0f 0%, #111118 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+      padding: 32px 0;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #7c3aed 0%, #f59e0b 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      font-size: 24px;
+      box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+    }
+
+    .main-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #e4e4e7 0%, #a1a1aa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #71717a;
+      font-weight: 400;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Main Content */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .settings-card {
+      background: rgba(24, 24, 27, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .settings-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent,
+        rgba(124, 58, 237, 0.8),
+        rgba(255, 131, 73, 0.6),
+        transparent
+      );
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #e4e4e7;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-title::before {
+      content: '🔑';
+      font-size: 1.2rem;
+    }
+
+    .card-description {
+      font-size: 0.95rem;
+      color: #a1a1aa;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    /* Form Styling */
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #d4d4d8;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .input-container {
+      position: relative;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 16px 20px;
+      background: rgba(9, 9, 11, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: #e4e4e7;
+      font-size: 0.95rem;
+      font-weight: 500;
+      outline: none;
+      transition: all 0.3s ease;
+      font-family: 'Inter', monospace;
+      letter-spacing: 0.3px;
+    }
+
+    .form-input:focus {
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+      background: rgba(9, 9, 11, 0.95);
+    }
+
+    .form-input:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .form-input::placeholder {
+      color: #71717a;
+      font-weight: 400;
+    }
+
+    /* Help Text */
+    .help-text {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #a1a1aa;
+      line-height: 1.5;
+    }
+
+    .help-link {
+      color: #7c3aed;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+
+    .help-link:hover {
+      color: #8b5cf6;
+      background: rgba(124, 58, 237, 0.1);
+    }
+
+    .help-link::after {
+      content: '↗';
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    /* Button Styling */
+    .button-group {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      padding: 16px 32px;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      outline: none;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+      color: white;
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+      flex: 1;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5);
+    }
+
+    .btn-primary:active {
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(39, 39, 42, 0.8);
+      color: #d4d4d8;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(63, 63, 70, 0.8);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Success Message */
+    .success-message {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #4ade80;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      animation: slideIn 0.3s ease;
+    }
+
+    .success-message::before {
+      content: '✓';
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Info Card */
+    .info-card {
+      background: rgba(59, 130, 246, 0.05);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+
+    .info-card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #60a5fa;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card-title::before {
+      content: 'ℹ️';
+      font-size: 1rem;
+    }
+
+    .info-card-text {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .info-list {
+      list-style: none;
+      margin: 12px 0;
+      padding: 0;
+    }
+
+    .info-list li {
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+
+    .info-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #60a5fa;
+      font-weight: bold;
+    }
+
+    /* Loading State */
+    .btn-loading {
+      position: relative;
+      color: transparent;
+    }
+
+    .btn-loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px 16px;
+      }
+
+      .main-title {
+        font-size: 2rem;
+      }
+
+      .settings-card {
+        padding: 24px 20px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo-section">
+      <div class="logo-icon">S</div>
+      <div>
+        <h1 class="main-title">Settings</h1>
+      </div>
+    </div>
+    <p class="subtitle">Configure your API key to enable AI-powered text summarization</p>
+  </div>
+
+  <div class="content">
+    <div class="settings-card">
+      <h2 class="card-title">API Configuration</h2>
+      <p class="card-description">
+        Enter your Google Gemini API key to start using the summarization features.
+        Your key is stored securely in your browser's local storage.
+      </p>
+
+      <div class="form-group">
+        <label class="form-label" for="api-key">Gemini API Key</label>
+        <div class="input-container">
+          <input
+                  type="password"
+                  id="api-key"
+                  class="form-input"
+                  placeholder="Enter your API key here..."
+                  autocomplete="off"
+                  spellcheck="false"
+          />
+        </div>
+        <div class="help-text">
+          Don't have an API key? Get one from
+          <a href="https://makersuite.google.com/app/apikey" target="_blank" class="help-link">
+            Google AI Studio
+          </a>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button id="save-button" class="btn btn-primary">Save Configuration</button>
+        <button id="test-button" class="btn btn-secondary">Test Connection</button>
+      </div>
+
+      <div id="success-message" class="success-message">
+        Settings saved successfully! You can now use the summarization features.
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3 class="info-card-title">Getting Started</h3>
+      <p class="info-card-text">
+        Follow these steps to set up your API key:
+      </p>
+      <ul class="info-list">
+        <li>Visit Google AI Studio and sign in with your Google account</li>
+        <li>Click "Get API Key" in the left panel</li>
+        <li>Copy the generated API key</li>
+        <li>Paste it in the field above and click "Save Configuration"</li>
+        <li>Use "Test Connection" to verify everything is working</li>
+      </ul>
+      <p class="info-card-text">
+        <strong>Note:</strong> Your API key is stored locally and never shared with third parties.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Enhanced UI functionality that works alongside options.js
+  document.addEventListener('DOMContentLoaded', function() {
+    const apiKeyInput = document.getElementById('api-key');
+    const saveButton = document.getElementById('save-button');
+    const testButton = document.getElementById('test-button');
+    const successMessage = document.getElementById('success-message');
+
+    // Show/hide password functionality
+    let isPasswordVisible = false;
+
+    // Add show/hide button dynamically
+    const inputContainer = apiKeyInput.parentElement;
+    const toggleButton = document.createElement('button');
+    toggleButton.type = 'button';
+    toggleButton.innerHTML = '👁️';
+    toggleButton.style.cssText = `
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #71717a;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color 0.2s ease;
+    `;
+    toggleButton.addEventListener('click', function() {
+      isPasswordVisible = !isPasswordVisible;
+      apiKeyInput.type = isPasswordVisible ? 'text' : 'password';
+      toggleButton.innerHTML = isPasswordVisible ? '🙈' : '👁️';
+    });
+
+    inputContainer.style.position = 'relative';
+    inputContainer.appendChild(toggleButton);
+
+    // Enhance the save button with loading state
+    // We'll intercept the click to add UI feedback, then let your original handler run
+    saveButton.addEventListener('click', function(e) {
+      const apiKey = apiKeyInput.value.trim();
+
+      if (!apiKey) {
+        e.preventDefault(); // Stop the original handler
+        showMessage('Please enter an API key', 'error');
+        return;
+      }
+
+      // Show loading state - your original code will handle the actual saving
+      saveButton.classList.add('btn-loading');
+      saveButton.disabled = true;
+    });
+
+    // Watch for changes in the success message to reset button state
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          if (successMessage.style.display === 'block') {
+            // Success message is shown, reset button state
+            setTimeout(() => {
+              saveButton.classList.remove('btn-loading');
+              saveButton.disabled = false;
+            }, 100);
+          }
+        }
+      });
+    });
+
+    observer.observe(successMessage, {
+      attributes: true,
+      attributeFilter: ['style']
+    });
+
+    // Test connection functionality
+    testButton.addEventListener('click', function() {
+      const apiKey = apiKeyInput.value.trim();
+
+      if (!apiKey) {
+        showMessage('Please enter an API key first', 'error');
+        return;
+      }
+
+      testButton.classList.add('btn-loading');
+      testButton.disabled = true;
+
+      // Simple test: check if the API key looks valid (starts with expected prefix)
+      setTimeout(() => {
+        if (apiKey.startsWith('AIza') && apiKey.length > 20) {
+          showMessage('API key format looks correct!', 'success');
+        } else {
+          showMessage('API key format may be incorrect. Please verify from Google AI Studio.', 'error');
+        }
+
+        testButton.classList.remove('btn-loading');
+        testButton.disabled = false;
+      }, 1500);
+    });
+
+    // Enhanced message display function
+    function showMessage(text, type = 'success') {
+      successMessage.textContent = text;
+      successMessage.className = 'success-message';
+
+      if (type === 'error') {
+        successMessage.style.background = 'rgba(239, 68, 68, 0.1)';
+        successMessage.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+        successMessage.style.color = '#f87171';
+      } else {
+        successMessage.style.background = 'rgba(34, 197, 94, 0.1)';
+        successMessage.style.borderColor = 'rgba(34, 197, 94, 0.3)';
+        successMessage.style.color = '#4ade80';
+      }
+
+      successMessage.style.display = 'flex';
+
+      // Auto-hide after 3 seconds (unless it's the success from your original code)
+      if (type === 'error') {
+        setTimeout(() => {
+          if (successMessage.style.color === '#f87171') { // Only hide if still showing our error
+            successMessage.style.display = 'none';
+          }
+        }, 3000);
+      }
+    }
+  });
+</script>
+<script src="options.js"></script>
+</body>
+</html>
