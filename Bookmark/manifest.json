@@ -1,13 +1,9 @@
 {
 
-  "name": "Youtube Bookmarks",
+  "name": "Bookmarks for Youtube",
   "version": "0.1.0",
   "description": "Saving timestamps in Youtube videos",
 
-  "name": "Bookmarks for Youtube",
-  "version": "0.1.0",
-  "description": "Saving timestamps of Youtube videos",
-  
   "permissions": ["activeTab","storage", "tabs"],
   "host_permissions": ["https://*.youtube.com/*"],
   "background": {
